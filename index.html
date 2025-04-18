@@ -1,0 +1,160 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zintle's Rides - Modern Transport Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-car-side"></i>
+        <h1>Zintle's Rides</h1>
+      </div>
+      <div class="nav-links">
+        <a href="#book">Book Now</a>
+        <a href="#rides">My Rides</a>
+        <a href="#help">Help</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="booking-card" id="book">
+      <div class="ride-type-selector">
+        <div class="ride-option active" data-type="now">
+          <i class="fas fa-bolt"></i>
+          <span>Ride Now</span>
+        </div>
+        <div class="ride-option" data-type="later">
+          <i class="fas fa-clock"></i>
+          <span>Schedule Ride</span>
+        </div>
+      </div>
+
+      <form id="bookingForm" class="booking-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Pickup Location</label>
+            <input type="text" id="pickup" placeholder="Enter pickup address" required />
+          </div>
+
+          <div class="form-group">
+            <label>Dropoff Location</label>
+            <input type="text" id="dropoff" placeholder="Enter destination" required />
+          </div>
+
+          <div class="form-group time-selection">
+            <label>Pickup Time</label>
+            <input type="time" id="pickupTime" required />
+            <input type="date" id="pickupDate" />
+          </div>
+
+          <div class="form-group trip-type">
+            <label>Trip Type</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn active" data-type="oneway">One Way</button>
+              <button type="button" class="toggle-btn" data-type="roundtrip">Round Trip</button>
+            </div>
+          </div>
+
+          <div class="form-group user-info">
+            <label>Your Details</label>
+            <div class="user-details-grid">
+              <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="userName" placeholder="Full Name" required />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="userEmail" placeholder="Email Address" required />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="userPhone" placeholder="Phone Number" required pattern="[0-9]{10}" title="10-digit South African number" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fare-preview">
+          <span>Estimated Fare:</span>
+          <div class="fare-amount">
+            <span id="fareDisplay">R 0.00</span>
+            <button type="button" onclick="calculateFare()" class="refresh-btn">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="cta-btn">
+          Confirm Booking <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+    </section>
+
+    <section class="bookings-section" id="rides">
+      <h2 class="section-title">Scheduled Rides</h2>
+      <div id="bookings" class="bookings-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer" id="help">
+    <!-- Add footer content -->
+  </footer>
+
+  <!-- Confirmation Popup -->
+  <div class="confirmation-popup" id="confirmationPopup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">&times;</button>
+      <div class="popup-header">
+        <i class="fas fa-check-circle"></i>
+        <h3>Booking Confirmed!</h3>
+      </div>
+      <div class="trip-details">
+        <div class="detail-item">
+          <span class="detail-label">Route:</span>
+          <span class="detail-value" id="popupRoute"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Time:</span>
+          <span class="detail-value" id="popupTime"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Trip Type:</span>
+          <span class="detail-value" id="popupTripType"></span>
+        </div>
+        <div class="user-details-popup" id="popupUserDetails">
+          <!-- This area can be populated with user details (name, email, phone) if needed -->
+        </div>
+        <div class="price-breakdown">
+          <div class="price-item">
+            <span>Base Price:</span>
+            <span>R 60.00</span>
+          </div>
+          <div class="price-item" id="roundtripCharge">
+            <span>Round Trip:</span>
+            <span>+ R 60.00</span>
+          </div>
+          <div class="price-item" id="scheduledCharge">
+            <span>Scheduled Ride:</span>
+            <span>+ R 6.00</span>
+          </div>
+          <div class="total-price">
+            <span>Total:</span>
+            <span id="popupTotal"></span>
+          </div>
+        </div>
+      </div>
+      <button class="cta-btn popup-close-btn" onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
